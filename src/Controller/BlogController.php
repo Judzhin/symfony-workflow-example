@@ -5,13 +5,13 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-final class DefaultController extends AbstractController
+
+final class BlogController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
-    #[Route('/default', name: 'app_default')]
     public function index(): Response
     {
-        return $this->render('default/index.html.twig', [
+        return $this->render('blog/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
     }
