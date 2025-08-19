@@ -7,6 +7,7 @@
     "php": ">=8.3",
     "ext-ctype": "*",
     "ext-iconv": "*",
+    "easycorp/easyadmin-bundle": "^4.24",
     "symfony/apache-pack": ">=1.0.1",
     "symfony/console": "7.3.*",
     "symfony/dotenv": "7.3.*",
