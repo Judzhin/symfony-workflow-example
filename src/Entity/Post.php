@@ -22,6 +22,9 @@ class Post
     #[Gedmo\Slug(fields: ['title'], updatable: true)]
     private string $slug;
 
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'posts')]
+    private Category $category;
+
     #[ORM\Column(type: Types::STRING, length: 500, nullable: true)]
     private ?string $shortDescription;
 

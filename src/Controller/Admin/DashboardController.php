@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
 use App\Entity\Tag;
 use Doctrine\Common\Collections\Order;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
@@ -44,9 +45,15 @@ class DashboardController extends AbstractDashboardController
             ->setTitle('Blog');
     }
 
+    /**
+     * @return iterable
+     */
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToCrud('Categories', 'fas fa-tag', Category::class)->setDefaultSort([
+            'updatedAt' => Order::Descending->value,
+        ]);
         yield MenuItem::linkToCrud('Tags', 'fas fa-tag', Tag::class)->setDefaultSort([
             'updatedAt' => Order::Descending->value,
         ]);
