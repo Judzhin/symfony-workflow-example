@@ -2,20 +2,33 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata as AP;
 use App\Repository\CategoryRepository;
+use App\Serializer\SerializationGroups;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-#[ApiResource]
+#[AP\ApiResource(
+//    formats: [
+//        'xml',
+//        'jsonld',
+//        'csv' => ['text/csv']
+//    ]
+//    normalizationContext: ['groups' => [SerializationGroups::CATEGORY_READ]],
+)]
+#[AP\Get(normalizationContext: ['groups' => [
+    SerializationGroups::READ
+]])]
 class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups([SerializationGroups::READ, 'category:write'])]
     private ?int $id = null;
 
     public function getId(): ?int
@@ -24,12 +37,16 @@ class Category
     }
 
     #[ORM\Column(type: Types::STRING, length: 50)]
+    #[Groups([SerializationGroups::READ, 'category:write'])]
     private string $title;
 
     #[ORM\Column(type: Types::STRING, length: 200)]
     #[Gedmo\Slug(fields: ['title'], updatable: true)]
     private string $slug;
 
+    /**
+     * @var iterable<int, Post>
+     */
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'category')]
     private iterable $posts;
 

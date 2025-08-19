@@ -7,6 +7,7 @@ use App\Repository\AuthorRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
 #[ApiResource]
@@ -23,16 +24,21 @@ class Author
     }
 
     #[ORM\Column(type: Types::STRING, length: 100)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 100)]
     private string $name;
 
     #[ORM\Column(type: Types::STRING, length: 200)]
     #[Gedmo\Slug(fields: ['name'], updatable: true, unique: true)]
+    #[Assert\NotBlank]
     private string $slug;
 
     #[ORM\Column(type: Types::STRING, length: 50)]
+    #[Assert\Length(max: 50)]
     private string $shortDescription;
 
-    #[ORM\Column(type: Types::STRING, length: 200, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Assert\Length(max: 255)]
     private ?string $description;
 
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'author')]
