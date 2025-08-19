@@ -35,4 +35,59 @@ class Author
 
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'author')]
     private iterable $posts;
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): Author
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): Author
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    public function getShortDescription(): string
+    {
+        return $this->shortDescription;
+    }
+
+    public function setShortDescription(string $shortDescription): Author
+    {
+        $this->shortDescription = $shortDescription;
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): Author
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function getPosts(): iterable
+    {
+        return $this->posts;
+    }
+
+    public function setPosts(iterable $posts): Author
+    {
+        $this->posts = $posts;
+        return $this;
+    }
 }

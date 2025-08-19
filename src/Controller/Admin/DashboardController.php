@@ -50,12 +50,13 @@ class DashboardController extends AbstractDashboardController
      */
     public function configureMenuItems(): iterable
     {
+        $defaultSort = ['updatedAt' => Order::Descending->value];
+
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Categories', 'fas fa-tag', Category::class)->setDefaultSort([
-            'updatedAt' => Order::Descending->value,
-        ]);
-        yield MenuItem::linkToCrud('Tags', 'fas fa-tag', Tag::class)->setDefaultSort([
-            'updatedAt' => Order::Descending->value,
-        ]);
+        yield MenuItem::section('Directories');
+        yield MenuItem::linkToCrud('Categories', 'fas fa-layer-group', Category::class)
+            ->setDefaultSort($defaultSort);
+        yield MenuItem::linkToCrud('Tags', 'fas fa-tag', Tag::class)
+            ->setDefaultSort($defaultSort);
     }
 }
