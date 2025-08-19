@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Author;
 use App\Entity\Category;
 use App\Entity\Tag;
 use Doctrine\Common\Collections\Order;
@@ -53,6 +54,8 @@ class DashboardController extends AbstractDashboardController
         $defaultSort = ['updatedAt' => Order::Descending->value];
 
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::section('Materials');
+        yield MenuItem::linkToCrud('Authors', 'fas fa-user-graduate', Author::class);
         yield MenuItem::section('Directories');
         yield MenuItem::linkToCrud('Categories', 'fas fa-layer-group', Category::class)
             ->setDefaultSort($defaultSort);
