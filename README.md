@@ -28,3 +28,10 @@ Run this command to install and enable this bundle in your application:
 composer require --dev symfony/maker-bundle 
 ```
 
+# [Doctrine Behavioral Extensions](https://github.com/doctrine-extensions/DoctrineExtensions)
+This package contains extensions for Doctrine ORM and MongoDB ODM that offer new functionality or tools to use Doctrine more efficiently. These behaviors can be easily attached to the event system of Doctrine and handle the records being flushed in a behavioral way.
+
+### Installation
+```shell
+composer require gedmo/doctrine-extensions
+```
