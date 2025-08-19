@@ -29,8 +29,14 @@ class Post
     private string $description;
 
     #[ORM\ManyToOne(targetEntity: Author::class, inversedBy: 'posts')]
-    #[ORM\JoinColumn(name: 'author_id', referencedColumnName: 'id')]
+    ##[ORM\JoinColumn(name: 'author_id', referencedColumnName: 'id')]
     private Author $author;
+
+    /**
+     * @var iterable<int, Tag>
+     */
+    #[ORM\ManyToMany(targetEntity: Tag::class)]
+    private iterable $tags;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $publishedAt;
