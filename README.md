@@ -35,3 +35,15 @@ This package contains extensions for Doctrine ORM and MongoDB ODM that offer new
 ```shell
 composer require gedmo/doctrine-extensions
 ```
+
+## [Testing](https://symfony.com/doc/current/testing.html)
+Whenever you write a new line of code, you also potentially add new bugs. To build better and more reliable applications, you should test your code using both functional and unit tests.
+
+Symfony integrates with an independent library called [PHPUnit](https://phpunit.de/) to give you a rich testing framework. This article covers the PHPUnit basics you'll need to write Symfony tests. To learn everything about PHPUnit and its features, read the [official PHPUnit documentation](https://docs.phpunit.de/en/12.3/).
+
+### Installation
+Before creating your first test, install symfony/test-pack, which installs some other packages needed for testing (such as phpunit/phpunit):
+
+```shell
+composer require --dev symfony/test-pack
+```
