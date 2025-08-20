@@ -1,96 +1,99 @@
 {
-  "type": "project",
-  "license": "proprietary",
-  "minimum-stability": "stable",
-  "prefer-stable": true,
-  "require": {
-    "php": ">=8.3",
-    "ext-ctype": "*",
-    "ext-iconv": "*",
-    "api-platform/doctrine-orm": "^4.1.20",
-    "api-platform/symfony": "^4.1.20",
-    "doctrine/doctrine-bundle": "^2.15.1",
-    "doctrine/doctrine-migrations-bundle": "^3.4.2",
-    "doctrine/orm": "^3.5.2",
-    "easycorp/easyadmin-bundle": "^4.24.9",
-    "gedmo/doctrine-extensions": "^3.20",
-    "knplabs/knp-gaufrette-bundle": "^0.9.0",
-    "lexik/jwt-authentication-bundle": "^3.1",
-    "liip/imagine-bundle": "^2.13",
-    "nelmio/cors-bundle": "^2.5",
-    "phpdocumentor/reflection-docblock": "^5.6.3",
-    "phpstan/phpdoc-parser": "^2.2",
-    "symfony/apache-pack": ">=1.0.1",
-    "symfony/asset": "7.3.*",
-    "symfony/console": "7.3.*",
-    "symfony/dotenv": "7.3.*",
-    "symfony/expression-language": "7.3.*",
-    "symfony/flex": "^2.8.1",
-    "symfony/framework-bundle": "7.3.*",
-    "symfony/property-access": "7.3.*",
-    "symfony/property-info": "7.3.*",
-    "symfony/runtime": "7.3.*",
-    "symfony/security-bundle": "7.3.*",
-    "symfony/serializer": "7.3.*",
-    "symfony/twig-bundle": "7.3.*",
-    "symfony/validator": "7.3.*",
-    "symfony/yaml": "7.3.*",
-    "vich/uploader-bundle": "^2.7"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^12.3",
-    "symfony/browser-kit": "7.3.*",
-    "symfony/css-selector": "7.3.*",
-    "symfony/maker-bundle": "^1.64",
-    "symfony/stopwatch": "7.3.*",
-    "symfony/web-profiler-bundle": "7.3.*"
-  },
-  "config": {
-    "allow-plugins": {
-      "php-http/discovery": true,
-      "symfony/flex": true,
-      "symfony/runtime": true
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.3",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "api-platform/doctrine-orm": "^4.1.20",
+        "api-platform/symfony": "^4.1.20",
+        "doctrine/doctrine-bundle": "^2.15.1",
+        "doctrine/doctrine-migrations-bundle": "^3.4.2",
+        "doctrine/orm": "^3.5.2",
+        "easycorp/easyadmin-bundle": "^4.24.9",
+        "gedmo/doctrine-extensions": "^3.20",
+        "knplabs/knp-gaufrette-bundle": "^0.9.0",
+        "lexik/jwt-authentication-bundle": "^3.1",
+        "liip/imagine-bundle": "^2.13",
+        "liip/monitor-bundle": "^2.24",
+        "nelmio/cors-bundle": "^2.5",
+        "phpdocumentor/reflection-docblock": "^5.6.3",
+        "phpstan/phpdoc-parser": "^2.2",
+        "symfony/apache-pack": ">=1.0.1",
+        "symfony/asset": "7.3.*",
+        "symfony/console": "7.3.*",
+        "symfony/dotenv": "7.3.*",
+        "symfony/expression-language": "7.3.*",
+        "symfony/flex": "^2.8.1",
+        "symfony/framework-bundle": "7.3.*",
+        "symfony/property-access": "7.3.*",
+        "symfony/property-info": "7.3.*",
+        "symfony/runtime": "7.3.*",
+        "symfony/security-bundle": "7.3.*",
+        "symfony/serializer": "7.3.*",
+        "symfony/twig-bundle": "7.3.*",
+        "symfony/validator": "7.3.*",
+        "symfony/yaml": "7.3.*",
+        "vich/uploader-bundle": "^2.7"
     },
-    "bump-after-update": true,
-    "sort-packages": true
-  },
-  "autoload": {
-    "psr-4": {
-      "App\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "App\\Tests\\": "tests/"
-    }
-  },
-  "replace": {
-    "symfony/polyfill-ctype": "*",
-    "symfony/polyfill-iconv": "*",
-    "symfony/polyfill-php80": "*",
-    "symfony/polyfill-php81": "*",
-    "symfony/polyfill-php82": "*",
-    "symfony/polyfill-php83": "*"
-  },
-  "scripts": {
-    "auto-scripts": {
-      "cache:clear": "symfony-cmd",
-      "assets:install %PUBLIC_DIR%": "symfony-cmd"
+    "require-dev": {
+        "phpunit/phpunit": "^12.3",
+        "symfony/browser-kit": "7.3.*",
+        "symfony/css-selector": "7.3.*",
+        "symfony/maker-bundle": "^1.64",
+        "symfony/stopwatch": "7.3.*",
+        "symfony/web-profiler-bundle": "7.3.*"
     },
-    "post-install-cmd": [
-      "@auto-scripts"
-    ],
-    "post-update-cmd": [
-      "@auto-scripts"
-    ]
-  },
-  "conflict": {
-    "symfony/symfony": "*"
-  },
-  "extra": {
-    "symfony": {
-      "allow-contrib": false,
-      "require": "7.3.*"
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "bump-after-update": true,
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*",
+        "symfony/polyfill-php83": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts",
+            "Liip\\MonitorBundle\\Composer\\ScriptHandler::checkHealth"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts",
+            "Liip\\MonitorBundle\\Composer\\ScriptHandler::checkHealth"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "7.3.*"
+        }
     }
-  }
 }
