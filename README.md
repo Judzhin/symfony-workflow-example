@@ -47,3 +47,13 @@ Before creating your first test, install symfony/test-pack, which installs some 
 ```shell
 composer require --dev symfony/test-pack
 ```
+
+## [VichUploaderBundle](https://github.com/dustin10/VichUploaderBundle)
+The VichUploaderBundle is a Symfony bundle that attempts to ease file uploads that are attached to ORM entities, MongoDB ODM documents, or PHPCR ODM documents.
+
+### Get the bundle using composer
+Add VichUploaderBundle by running this command from the terminal at the root of your Symfony project:
+
+```shell
+composer require vich/uploader-bundle
+```

@@ -1,0 +1,10 @@
+knp_gaufrette:
+    stream_wrapper: ~
+    adapters:
+        upload_adapter:
+            local:
+                directory: '%kernel.project_dir%/public/uploads'
+
+    filesystems:
+        uploads_fs:
+            adapter: upload_adapter

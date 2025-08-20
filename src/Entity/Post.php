@@ -9,10 +9,14 @@ use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[Vich\Uploadable]
 #[ApiResource]
 #[ApiFilter(OrderFilter::class, properties: [
     'id', 'title', 'publishedAt', 'createdAt', 'updatedAt'
@@ -62,6 +66,18 @@ class Post
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $publishedAt;
+
+    #[Vich\UploadableField(mapping: 'post_poster', fileNameProperty: 'posterName', size: 'posterSize')]
+    private ?File $posterFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $posterName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $posterSize = null;
+
+    //#[ORM\Embedded(class: EmbeddedFile::class, columnPrefix: 'poster')]
+    //private ?EmbeddedFile $poster = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $createdAt;
@@ -172,6 +188,59 @@ class Post
         $this->publishedAt = $publishedAt;
         return $this;
     }
+
+    public function getPosterFile(): ?File
+    {
+        return $this->posterFile;
+    }
+
+    /**
+     * @param File|null $posterFile
+     * @return $this
+     */
+    public function setPosterFile(?File $posterFile = null): Post
+    {
+        $this->posterFile = $posterFile;
+        if (null !== $posterFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->setUpdatedAtValue();
+        }
+        return $this;
+    }
+
+    public function getPosterName(): ?string
+    {
+        return $this->posterName;
+    }
+
+    public function setPosterName(?string $posterName): Post
+    {
+        $this->posterName = $posterName;
+        return $this;
+    }
+
+    public function getPosterSize(): ?int
+    {
+        return $this->posterSize;
+    }
+
+    public function setPosterSize(?int $posterSize): Post
+    {
+        $this->posterSize = $posterSize;
+        return $this;
+    }
+
+    // public function getPoster(): ?EmbeddedFile
+    // {
+    //     return $this->poster;
+    // }
+    //
+    // public function setPoster(?EmbeddedFile $poster): Post
+    // {
+    //     $this->poster = $poster;
+    //     return $this;
+    // }
 
     public function getCreatedAt(): \DateTimeInterface
     {
