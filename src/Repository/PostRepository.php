@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Order;
+use Doctrine\ORM\Query\Expr\OrderBy;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -40,4 +42,27 @@ class PostRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    /**
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return iterable<int, Post>
+     */
+    public function findByPublished(?int $limit = null, ?int $offset = null): array
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        $root = $queryBuilder->getRootAliases()[0];
+
+        $queryBuilder
+            ->where($queryBuilder->expr()->eq(sprintf('%s.type', $root), ':type'))
+            ->setParameter('type', Post::TYPE_PUBLISHED);
+
+        $queryBuilder
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->addOrderBy(new OrderBy(sprintf('%s.publishedAt', $root), Order::Descending->value));
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }
