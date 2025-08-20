@@ -57,3 +57,16 @@ Add VichUploaderBundle by running this command from the terminal at the root of 
 ```shell
 composer require vich/uploader-bundle
 ```
+## [Gaufrette Bundle](https://github.com/KnpLabs/KnpGaufretteBundle)
+Gaufrette is a PHP library providing a filesystem abstraction layer. This abstraction layer allows you to develop applications without needing to know where all their media files will be stored or how.
+
+Documentation is available the [official page of Gaufrette](https://github.com/KnpLabs/Gaufrette).
+
+### Installation
+As this bundle is an integration for Symfony of the Gaufrette library, it requires you to first install Gaufrette in your project.
+
+Note that, you need to install separately the adapters you want to use. You can find more details about these packages here, and the full list adapters on packagist.
+
+```shell
+composer require knplabs/knp-gaufrette-bundle
+```
