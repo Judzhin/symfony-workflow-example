@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata as AP;
+
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\CategoryRepository;
 use App\Serializer\SerializationGroups;
 use Doctrine\DBAL\Types\Types;
@@ -12,18 +15,26 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-#[AP\ApiResource(
+#[ApiResource(
 //    formats: [
 //        'xml',
 //        'jsonld',
 //        'csv' => ['text/csv']
 //    ]
 //    normalizationContext: ['groups' => [SerializationGroups::CATEGORY_READ]],
+//    operations: [
+//        new GetCollection(normalizationContext: [
+//            SerializationGroups::BASE_READ->name
+//        ]),
+//        new Get(normalizationContext: [
+//            SerializationGroups::BASE_READ->name
+//        ])
+//    ]
 )]
-#[AP\GetCollection(normalizationContext: ['groups' => [
+#[GetCollection(normalizationContext: ['groups' => [
     SerializationGroups::BASE_READ->name
 ]])]
-#[AP\Get(normalizationContext: ['groups' => [
+#[Get(normalizationContext: ['groups' => [
 //    SerializationGroups::BASE_READ->name
 ]])]
 class Category
@@ -53,6 +64,11 @@ class Category
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $updatedAt;
+
+    public function __toString(): string
+    {
+        return $this->title;
+    }
 
     public function getId(): ?int
     {
@@ -107,7 +123,6 @@ class Category
     public function setCreatedAtValue(): Category
     {
         $this->setCreatedAt(new \DateTime);
-        $this->setUpdatedAt($this->getCreatedAt());
         return $this;
     }
 
@@ -122,9 +137,8 @@ class Category
         return $this;
     }
 
-    /**
-     * @return $this
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function setUpdatedAtValue(): Category
     {
         $this->setUpdatedAt(new \DateTime);

@@ -36,6 +36,12 @@ class Tag
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $updatedAt;
 
+    public function __toString(): string
+    {
+        return $this->title;
+    }
+
+
     public function getTitle(): string
     {
         return $this->title;
@@ -73,7 +79,6 @@ class Tag
     public function setCreatedAtValue(): Tag
     {
         $this->setCreatedAt(new \DateTime);
-        $this->setUpdatedAt($this->getCreatedAt());
         return $this;
     }
 
@@ -88,6 +93,7 @@ class Tag
         return $this;
     }
 
+    #[ORM\PrePersist]
     #[ORM\PreUpdate]
     public function setUpdatedAtValue(): Tag
     {
