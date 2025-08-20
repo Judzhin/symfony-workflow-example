@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,6 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[ApiResource]
+#[ApiFilter(OrderFilter::class, properties: [
+    'id', 'title', 'publishedAt', 'createdAt', 'updatedAt'
+])]
 class Post
 {
     #[ORM\Id]
@@ -202,5 +209,4 @@ class Post
         $this->setUpdatedAt(new \DateTime);
         return $this;
     }
-
 }

@@ -7,6 +7,7 @@ use ApiPlatform\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
 use App\Entity\Post;
+use App\Repository\PostRepository;
 use Doctrine\ORM\QueryBuilder;
 
 class FilterPublishedPostQueryExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
@@ -46,8 +47,7 @@ class FilterPublishedPostQueryExtension implements QueryCollectionExtensionInter
     private function applyCriteria(QueryBuilder $queryBuilder, string $resourceClass): void
     {
         if (Post::class === $resourceClass) {
-            $queryBuilder->andWhere($queryBuilder->expr()->eq(sprintf('%s.type', $queryBuilder->getRootAliases()[0]), ':type'));
-            $queryBuilder->setParameter('type', Post::TYPE_PUBLISHED);
+            PostRepository::applyPublishedAtCriteria($queryBuilder);
         }
     }
 }

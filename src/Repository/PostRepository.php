@@ -6,6 +6,7 @@ use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Query\Expr\OrderBy;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -44,6 +45,21 @@ class PostRepository extends ServiceEntityRepository
 //    }
 
     /**
+     * @param QueryBuilder $queryBuilder
+     * @param string|null $root
+     * @return void
+     */
+    public static function applyPublishedAtCriteria(QueryBuilder $queryBuilder, ?string $root = null): void
+    {
+        $root = $root ?? $queryBuilder->getRootAliases()[0];
+        $queryBuilder
+            ->where($queryBuilder->expr()->eq(sprintf('%s.type', $root), ':type'))
+            ->andWhere($queryBuilder->expr()->lte(sprintf('%s.publishedAt', $root), ':publishedAt'))
+            ->setParameter('type', Post::TYPE_PUBLISHED)
+            ->setParameter('publishedAt', new \DateTime);
+    }
+
+    /**
      * @param int|null $limit
      * @param int|null $offset
      * @return iterable<int, Post>
@@ -53,10 +69,12 @@ class PostRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('p');
 
         $root = $queryBuilder->getRootAliases()[0];
-
-        $queryBuilder
-            ->where($queryBuilder->expr()->eq(sprintf('%s.type', $root), ':type'))
-            ->setParameter('type', Post::TYPE_PUBLISHED);
+        self::applyPublishedAtCriteria($queryBuilder, $root);
+        // $queryBuilder
+        //     ->where($queryBuilder->expr()->eq(sprintf('%s.type', $root), ':type'))
+        //     ->andWhere($queryBuilder->expr()->lte(sprintf('%s.publishedAt', $root), ':publishedAt'))
+        //     ->setParameter('type', Post::TYPE_PUBLISHED)
+        //     ->setParameter('publishedAt', new \DateTime);
 
         $queryBuilder
             ->setMaxResults($limit)
