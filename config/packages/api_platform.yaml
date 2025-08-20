@@ -9,7 +9,7 @@ api_platform:
         jsonld: [ "application/ld+json" ]
         # jsonhal: [ "application/hal+json" ]
         # jsonapi: [ "application/vnd.api+json" ]
-        # json: [ "application/json" ]
+        json: [ "application/json" ]
         xml: [ "application/xml", "text/xml" ]
         # yaml: [ "application/x-yaml" ]
         csv: [ "text/csv" ]

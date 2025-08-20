@@ -20,24 +20,22 @@ use Symfony\Component\Serializer\Annotation\Groups;
 //    ]
 //    normalizationContext: ['groups' => [SerializationGroups::CATEGORY_READ]],
 )]
+#[AP\GetCollection(normalizationContext: ['groups' => [
+    SerializationGroups::BASE_READ->name
+]])]
 #[AP\Get(normalizationContext: ['groups' => [
-    SerializationGroups::READ
+//    SerializationGroups::BASE_READ->name
 ]])]
 class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups([SerializationGroups::READ, 'category:write'])]
+    #[Groups([SerializationGroups::BASE_READ->name])]
     private ?int $id = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     #[ORM\Column(type: Types::STRING, length: 50)]
-    #[Groups([SerializationGroups::READ, 'category:write'])]
+    #[Groups([SerializationGroups::BASE_READ->name])]
     private string $title;
 
     #[ORM\Column(type: Types::STRING, length: 200)]
@@ -55,6 +53,11 @@ class Category
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $updatedAt;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getTitle(): string
     {

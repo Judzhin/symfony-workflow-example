@@ -4,8 +4,8 @@ namespace App\Serializer;
 
 enum SerializationGroups
 {
-    const READ = 'read';
-
-    const CATEGORY_READ = 'category:read';
-    const CATEGORY_WRITE = 'category:write';
+    case BASE_READ;
+    case BASE_WRITE;
+    case CATEGORY_READ;
+    case CATEGORY_WRITE;
 }
