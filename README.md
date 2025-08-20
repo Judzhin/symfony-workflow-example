@@ -70,3 +70,15 @@ Note that, you need to install separately the adapters you want to use. You can 
 ```shell
 composer require knplabs/knp-gaufrette-bundle
 ```
+
+## LiipImagineBundle
+The [LiipImagineBundle](https://github.com/liip/LiipImagineBundle) package provides an image manipulation abstraction toolkit for Symfony-based projects.
+
+### Installation
+Open a command console, enter your project directory, and execute the following command to download the latest stable version of this bundle and add it as a dependency to your project:
+
+```shell
+composer require liip/imagine-bundle
+```
+
+If you accept the Symfony Flex recipe during installation, the bundle is registered, routing set up and the configuration skeleton file is created. You can now adapt the configuration to your needs. Otherwise, you need to configure the bundle with the next steps.
