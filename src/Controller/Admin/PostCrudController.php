@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Post;
 use App\Field\ReadOnlyField;
+use App\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -57,9 +58,9 @@ class PostCrudController extends AbstractCrudController
             ->setRequired(true);
         yield DateTimeField::new('publishedAt');
 
-        yield TextField::new('posterFile')
-            ->setFormType(VichImageType::class)
-            ->onlyOnForms();
+        // yield TextField::new('posterFile')
+        yield VichImageField::new('posterFile')
+            ->hideOnIndex();
 
         yield DateTimeField::new('createdAt')
             ->onlyOnDetail();

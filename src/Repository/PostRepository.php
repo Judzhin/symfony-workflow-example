@@ -70,11 +70,6 @@ class PostRepository extends ServiceEntityRepository
 
         $root = $queryBuilder->getRootAliases()[0];
         self::applyPublishedAtCriteria($queryBuilder, $root);
-        // $queryBuilder
-        //     ->where($queryBuilder->expr()->eq(sprintf('%s.type', $root), ':type'))
-        //     ->andWhere($queryBuilder->expr()->lte(sprintf('%s.publishedAt', $root), ':publishedAt'))
-        //     ->setParameter('type', Post::TYPE_PUBLISHED)
-        //     ->setParameter('publishedAt', new \DateTime);
 
         $queryBuilder
             ->setMaxResults($limit)

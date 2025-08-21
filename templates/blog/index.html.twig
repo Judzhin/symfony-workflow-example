@@ -105,7 +105,17 @@
                             <div class="slider-item-content">
                                 <div class="post-thumb mb-4">
                                     <a href="{{ path('app_post_view', {id: post.id, slug: post.slug}) }}">
-                                        <img src="{{ vich_uploader_asset(post, 'posterFile') }}" alt="" class="img-fluid">
+                                        {% if post.posterName|length %}
+                                            <img
+                                                src="{{ vich_uploader_asset(post, 'posterFile') | imagine_filter('450_478o') }}"
+                                                alt="{{ post.title }}"
+                                                class="img-fluid">
+                                        {% else %}
+                                            <img
+                                                src="https://placehold.co/450x478"
+                                                alt="{{ post.title }}"
+                                                class="img-fluid">
+                                        {% endif %}
                                     </a>
                                 </div>
                                 <div class="slider-post-content">
@@ -136,8 +146,20 @@
                         {% for post in posts|slice(5,9) %}
                             <div class="col-lg-3 col-md-6">
                                 <article class="post-grid mb-5">
-                                    <a class="post-thumb mb-4 d-block" href="{{ path('app_post_view', {id: post.id, slug: post.slug}) }}">
-                                        <img src="images/news/f1.jpg" alt="" class="img-fluid w-100">
+                                    <a class="post-thumb mb-4 d-block"
+                                       href="{{ path('app_post_view', {id: post.id, slug: post.slug}) }}">
+                                        {% if post.posterName|length %}
+                                            <img
+                                                src="{{ vich_uploader_asset(post, 'posterFile') | imagine_filter('255_255o') }}"
+                                                alt="{{ post.title }}"
+                                                class="img-fluid w-100">
+                                        {% else %}
+                                            <img
+                                                src="https://placehold.co/255x255"
+                                                alt="{{ post.title }}"
+                                                class="img-fluid w-100">
+                                        {% endif %}
+
                                     </a>
                                     <span
                                         class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1">
