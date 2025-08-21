@@ -1,0 +1,27 @@
+{% if posts.haveToPaginate %}
+
+    <div class="m-auto">
+        <div class="pagination mt-5 pt-4">
+            <ul class="list-inline ">
+                {% if posts.hasPreviousPage %}
+                    <li class="list-inline-item">
+                        <a href="{{ path('app_post', {page: posts.getPreviousPage}) }}" class="prev-posts">
+                            <i class="ti-arrow-left"></i>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if posts.hasNextPage %}
+                    <li class="list-inline-item">
+                        <a href="{{ path('app_post', {page: posts.getNextPage}) }}" class="prev-posts">
+                            <i class="ti-arrow-right"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+{% endif %}
+
+

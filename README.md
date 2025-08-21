@@ -134,3 +134,13 @@ composer require liip/imagine-bundle
 If you accept the Symfony Flex recipe during installation, the bundle is registered, routing set up and the
 configuration skeleton file is created. You can now adapt the configuration to your needs. Otherwise, you need to
 configure the bundle with the next steps.
+
+## [PagerfantaBundle](https://www.babdev.com/open-source/packages/pagerfantabundle/docs)
+The PagerfantaBundle is a Symfony bundle integrating Pagerfanta into an application.
+
+This bundle is a continuation of the WhiteOctoberPagerfantaBundle.
+
+### Installation
+```shell
+composer require babdev/pagerfanta-bundle pagerfanta/doctrine-orm-adapter
+```

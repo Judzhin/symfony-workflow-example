@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Query\Expr\OrderBy;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -62,9 +64,9 @@ class PostRepository extends ServiceEntityRepository
     /**
      * @param int|null $limit
      * @param int|null $offset
-     * @return iterable<int, Post>
+     * @return Pagerfanta<int, Post>
      */
-    public function findByPublished(?int $limit = null, ?int $offset = null): array
+    public function findPublished(?int $limit = null, ?int $offset = null): Pagerfanta
     {
         $queryBuilder = $this->createQueryBuilder('p');
 
@@ -72,10 +74,11 @@ class PostRepository extends ServiceEntityRepository
         self::applyPublishedAtCriteria($queryBuilder, $root);
 
         $queryBuilder
-            ->setMaxResults($limit)
-            ->setFirstResult($offset)
+            // ->setMaxResults($limit)
+            // ->setFirstResult($offset)
             ->addOrderBy(new OrderBy(sprintf('%s.publishedAt', $root), Order::Descending->value));
 
-        return $queryBuilder->getQuery()->getResult();
+        // return $queryBuilder->getQuery()->getResult();
+        return new Pagerfanta(new QueryAdapter($queryBuilder->getQuery()));
     }
 }
