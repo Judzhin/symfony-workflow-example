@@ -12,7 +12,7 @@ final class BlogController extends AbstractController
     #[Route('/', name: 'app_index')]
     public function index(PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findByPublished(10);
+        $posts = $postRepository->findByPublished(14);
         return $this->render('blog/index.html.twig', [
             'posts' => $posts,
         ]);
