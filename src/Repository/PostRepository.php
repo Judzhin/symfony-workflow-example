@@ -62,11 +62,9 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int|null $limit
-     * @param int|null $offset
-     * @return Pagerfanta<int, Post>
+     * @return Pagerfanta
      */
-    public function findPublished(?int $limit = null, ?int $offset = null): Pagerfanta
+    public function findPublished(): Pagerfanta
     {
         $queryBuilder = $this->createQueryBuilder('p');
 
@@ -74,11 +72,8 @@ class PostRepository extends ServiceEntityRepository
         self::applyPublishedAtCriteria($queryBuilder, $root);
 
         $queryBuilder
-            // ->setMaxResults($limit)
-            // ->setFirstResult($offset)
             ->addOrderBy(new OrderBy(sprintf('%s.publishedAt', $root), Order::Descending->value));
 
-        // return $queryBuilder->getQuery()->getResult();
         return new Pagerfanta(new QueryAdapter($queryBuilder->getQuery()));
     }
 }

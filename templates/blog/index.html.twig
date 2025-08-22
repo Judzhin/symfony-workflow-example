@@ -1,4 +1,5 @@
 {% extends 'blog.html.twig' %}
+{% import 'macro.html.twig' as post_macro %}
 
 {% block title %}Hello DefaultController!{% endblock %}
 
@@ -105,17 +106,12 @@
                             <div class="slider-item-content">
                                 <div class="post-thumb mb-4">
                                     <a href="{{ path('app_post_view', {id: post.id, slug: post.slug}) }}">
-                                        {% if post.posterName|length %}
-                                            <img
-                                                src="{{ vich_uploader_asset(post, 'posterFile') | imagine_filter('450_478o') }}"
-                                                alt="{{ post.title }}"
-                                                class="img-fluid">
-                                        {% else %}
-                                            <img
-                                                src="https://placehold.co/450x478"
-                                                alt="{{ post.title }}"
-                                                class="img-fluid">
-                                        {% endif %}
+                                        <img
+                                            src="{{ post.posterName is defined and post.posterName is not null
+                                            ? vich_uploader_asset(post, 'posterFile') | imagine_filter('450_478o')
+                                            : "https://placehold.co/450x478" }}"
+                                            alt="{{ post.title }}"
+                                            class="img-fluid">
                                     </a>
                                 </div>
                                 <div class="slider-post-content">
@@ -138,48 +134,6 @@
         </div>
     </section>
 
-    <section class="section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="row">
-                        {% for post in posts|slice(8,16) %}
-                            <div class="col-lg-3 col-md-6">
-                                <article class="post-grid mb-5">
-                                    <a class="post-thumb mb-4 d-block"
-                                       href="{{ path('app_post_view', {id: post.id, slug: post.slug}) }}">
-                                        {% if post.posterName|length %}
-                                            <img
-                                                src="{{ vich_uploader_asset(post, 'posterFile') | imagine_filter('255_255o') }}"
-                                                alt="{{ post.title }}"
-                                                class="img-fluid w-100">
-                                        {% else %}
-                                            <img
-                                                src="https://placehold.co/255x255"
-                                                alt="{{ post.title }}"
-                                                class="img-fluid w-100">
-                                        {% endif %}
+    {{ post_macro.post_padding(posts, posts|slice(8,16)) }}
 
-                                    </a>
-                                    <span
-                                        class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1">
-                                        {{ post.category }}
-                                    </span>
-                                    <h3 class="post-title mt-1">
-                                        <a href="{{ path('app_post_view', {id: post.id, slug: post.slug}) }}">{{ post.title }}</a>
-                                    </h3>
-                                    <span class="text-muted letter-spacing text-uppercase font-sm">
-                                        {{ post.publishedAt|date("F jS, Y") }}
-                                    </span>
-                                </article>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                {% include 'partials/_pagination.html.twig' with {posts: posts} only %}
-
-            </div>
-        </div>
-    </section>
 {% endblock %}
