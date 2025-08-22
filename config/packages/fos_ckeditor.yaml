@@ -17,7 +17,7 @@ fos_ck_editor:
                 [ 'Maximize', 'Source' ]
             ]
             # uiColor: "#000000",
-#            filebrowserBrowseRoute: file_manager
-#            filebrowserBrowseRouteParameters:
-#                conf: default
-#                module: ckeditor
+            filebrowserBrowseRoute: file_manager
+            filebrowserBrowseRouteParameters:
+                conf: default
+                module: ckeditor
