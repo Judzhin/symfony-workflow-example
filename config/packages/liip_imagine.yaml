@@ -30,6 +30,30 @@ liip_imagine:
         cache: ~
 
         # the name of the "filter set"
+        730_431o:
+            # adjust the image quality to 75%
+            quality: 75
+            # list of transformations to apply (the "filters")
+            filters:
+                # create a thumbnail: set size to 120x90 and use the "outbound" mode
+                # to crop the image when the size ratio of the input differs
+                thumbnail: { size: [ 730, 431 ], mode: outbound }
+                # create a 2px black border: center the thumbnail on a black background
+                # 4px larger to create a 2px border around the final image
+                background: { size: [ 730, 431 ], position: center, color: '#000000' }
+
+        730_431i:
+            # adjust the image quality to 75%
+            quality: 75
+            # list of transformations to apply (the "filters")
+            filters:
+                # create a thumbnail: set size to 120x90 and use the "outbound" mode
+                # to crop the image when the size ratio of the input differs
+                thumbnail: { size: [ 730, 431 ], mode: inset }
+                # create a 2px black border: center the thumbnail on a black background
+                # 4px larger to create a 2px border around the final image
+                background: { size: [ 730, 431 ], position: center, color: '#000000' }
+
         450_478o:
             # adjust the image quality to 75%
             quality: 75

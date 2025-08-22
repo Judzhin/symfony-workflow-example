@@ -30,6 +30,7 @@ final class PostController extends AbstractController
     public function view(Post $post): Response
     {
         return $this->render('post/view.html.twig', [
+            'post' => $post
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use App\Field\CKEditorField;
 use App\Field\ReadOnlyField;
 use App\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -48,7 +49,11 @@ class PostCrudController extends AbstractCrudController
 
         yield TextField::new('shortDescription')
             ->onlyOnForms();
-        yield TextEditorField::new('description')
+
+        // yield TextEditorField::new('description')
+        //     ->hideOnIndex();
+
+        yield CKEditorField::new('description')
             ->hideOnIndex();
 
         yield AssociationField::new('tags')

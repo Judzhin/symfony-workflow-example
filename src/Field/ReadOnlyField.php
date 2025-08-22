@@ -3,10 +3,13 @@
 namespace App\Field;
 
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class ReadOnlyField
+class ReadOnlyField implements FieldInterface
 {
+    use FieldTrait;
+
     /**
      * @param string $propertyName
      * @param $label
