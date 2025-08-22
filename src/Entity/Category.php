@@ -59,6 +59,13 @@ class Category
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'category')]
     private iterable $posts;
 
+    /**
+     * Cache count post by self category
+     * @var int
+     */
+    #[ORM\Column(type: Types::INTEGER, options: ['default' => 0])]
+    private int $cacheCountPosts = 0;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $createdAt;
 
@@ -105,6 +112,24 @@ class Category
     public function setPosts(iterable $posts): Category
     {
         $this->posts = $posts;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCacheCountPosts(): int
+    {
+        return $this->cacheCountPosts;
+    }
+
+    /**
+     * @param int $cacheCountPosts
+     * @return $this
+     */
+    public function setCacheCountPosts(int $cacheCountPosts): Category
+    {
+        $this->cacheCountPosts = $cacheCountPosts;
         return $this;
     }
 

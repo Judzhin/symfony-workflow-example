@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Order;
@@ -62,9 +63,9 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Pagerfanta
+     * @return QueryBuilder
      */
-    public function findPublished(): Pagerfanta
+    private function createPublishedQueryBuilder(): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('p');
 
@@ -74,6 +75,58 @@ class PostRepository extends ServiceEntityRepository
         $queryBuilder
             ->addOrderBy(new OrderBy(sprintf('%s.publishedAt', $root), Order::Descending->value));
 
+        return $queryBuilder;
+    }
+
+    /**
+     * @return Pagerfanta
+     */
+    public function findPublished(): Pagerfanta
+    {
+        $queryBuilder = $this->createPublishedQueryBuilder();
+
+        // $queryBuilder = $this->createQueryBuilder('p');
+        //
+        // $root = $queryBuilder->getRootAliases()[0];
+        // self::applyPublishedAtCriteria($queryBuilder, $root);
+        //
+        // $queryBuilder
+        //     ->addOrderBy(new OrderBy(sprintf('%s.publishedAt', $root), Order::Descending->value));
+
         return new Pagerfanta(new QueryAdapter($queryBuilder->getQuery()));
+    }
+
+    /**
+     * @param Category $category
+     * @return Pagerfanta
+     */
+    public function findPublishedByCategory(Category $category): Pagerfanta
+    {
+        $queryBuilder = $this->createPublishedQueryBuilder();
+
+        $queryBuilder
+            ->andWhere($queryBuilder->expr()->eq('p.category', ':category'))
+            ->setParameter('category', $category);
+
+        return new Pagerfanta(new QueryAdapter($queryBuilder->getQuery()));
+    }
+
+    /**
+     * @param Category $category
+     * @return int
+     */
+    public function countPublishedBy(Category $category): int
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('p')
+            ->select('COUNT(p.id)');
+
+        self::applyPublishedAtCriteria($queryBuilder);
+
+        $queryBuilder
+            ->andWhere($queryBuilder->expr()->eq('p.category', ':category'))
+            ->setParameter('category', $category);
+
+        return $queryBuilder->getQuery()->getSingleScalarResult();
     }
 }

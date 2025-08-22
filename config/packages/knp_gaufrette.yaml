@@ -3,7 +3,7 @@ knp_gaufrette:
     adapters:
         upload_adapter:
             local:
-                directory: '%kernel.project_dir%/public/uploads'
+                directory: '%app.upload_dir%'
 
     filesystems:
         uploads_fs:

@@ -8,15 +8,15 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-2 col-md-4 text-center d-none d-lg-block">
-                    <a class="navbar-brand " href="index.html">
-                        <img src="images/logo.png" alt="" class="img-fluid">
+                    <a class="navbar-brand " href="{{ path('app_index') }}">
+                        <img src="{{ asset('images/logo.png') }}" alt="" class="img-fluid">
                     </a>
                 </div>
 
                 <div class="col-lg-8 col-md-12">
                     <nav class="navbar navbar-expand-lg navigation-2 navigation">
-                        <a class="navbar-brand text-uppercase d-lg-none" href="#">
-                            <img src="images/logo.png" alt="" class="img-fluid">
+                        <a class="navbar-brand text-uppercase d-lg-none" href="{{ path('app_index') }}">
+                            <img src="{{ asset('images/logo.png') }}" alt="" class="img-fluid">
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false"
@@ -134,6 +134,6 @@
         </div>
     </section>
 
-    {{ post_macro.post_padding(posts, posts|slice(8,16)) }}
+    {{ post_macro.post_padding(posts, posts|slice(8,16), 'app_post') }}
 
 {% endblock %}

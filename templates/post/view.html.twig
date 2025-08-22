@@ -63,22 +63,18 @@
                             <div class="sidebar-widget category mb-5">
                                 <h4 class="text-center widget-title">Catgeories</h4>
                                 <ul class="list-unstyled">
-                                    <li class="align-items-center d-flex justify-content-between">
-                                        <a href="#">Innovation</a>
-                                        <span>14</span>
-                                    </li>
-                                    <li class="align-items-center d-flex justify-content-between">
-                                        <a href="#">Software</a>
-                                        <span>2</span>
-                                    </li>
-                                    <li class="align-items-center d-flex justify-content-between">
-                                        <a href="#">Social</a>
-                                        <span>10</span>
-                                    </li>
-                                    <li class="align-items-center d-flex justify-content-between">
-                                        <a href="#">Trends</a>
-                                        <span>5</span>
-                                    </li>
+
+                                    {% for category in categories %}
+                                        {% if category.cacheCountPosts > 0 %}
+                                            <li class="align-items-center d-flex justify-content-between">
+                                                <a href="{{ path('app_post_by_category', {
+                                                    id: category.id,
+                                                    slug: category.slug}) }}">{{ category }}</a>
+                                                <span>{{ category.cacheCountPosts }}</span>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+
                                 </ul>
                             </div>
 
@@ -101,17 +97,13 @@
                         <div class="post-header mb-5 text-center">
                             <div class="meta-cat">
                                 <a class="post-category font-extra text-color text-uppercase font-sm letter-spacing-1"
-                                   href="#">Health ,</a>
-                                <a class="post-category font-extra text-color text-uppercase font-sm letter-spacing-1"
-                                   href="#">lifestyle</a>
+                                   href="#">{{ post.category }}</a>
                             </div>
-                            <h2 class="post-title mt-2">
-                                First Look At Self-Portrait's Autumn Collection
-                            </h2>
-
+                            <h2 class="post-title mt-2">{{ post.title }}</h2>
                             <div class="post-meta">
-                                <span class="text-uppercase font-sm letter-spacing-1 mr-3">by Liam</span>
-                                <span class="text-uppercase font-sm letter-spacing-1">January 17,2019</span>
+                                <span class="text-uppercase font-sm letter-spacing-1 mr-3">by {{ post.author }}</span>
+                                <span
+                                    class="text-uppercase font-sm letter-spacing-1"> {{ post.publishedAt|date("F jS, Y") }}</span>
                             </div>
                             <div class="post-featured-image mt-5">
                                 <img
@@ -125,37 +117,13 @@
                         <div class="post-body">
                             <div class="entry-content">
                                 {{ post.description|raw }}
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6">
-                                        <img src="images/fashion/single-img1.png" alt="post-ads"
-                                             class="img-fluid mr-4 w-100">
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <img src="images/fashion/single-img2.png" alt="post-ads"
-                                             class="img-fluid mr-4 w-100">
-                                    </div>
-                                </div>
-                                <h3 class="mt-5 mb-3">Enjoying the view of summer</h3>
-
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde cum delectus
-                                    exercitationem
-                                    natus quidem enim error suscipit. Iure cupiditate nobis quaerat consectetur! Vero
-                                    aliquam,
-                                    amet ipsum ullam reiciendis nostrum voluptate accusantium provident ut blanditiis
-                                    incidunt. </p>
-
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates ab ratione animi
-                                    nobis in et consequatur
-                                    earum modi repellendus, qui, non debitis pariatur tempora consequuntur!</p>
                             </div>
 
                             <div class="post-tags py-4">
-                                <a href="#">#Health</a>
-                                <a href="#">#Game</a>
-                                <a href="#">#Tour</a>
+                                {% for tag in post.tags %}
+                                    <a href="#">#{{ tag }}</a>
+                                {% endfor %}
                             </div>
-
 
                             <div
                                 class="tags-share-box center-box d-flex text-center justify-content-between border-top border-bottom py-3">

@@ -33,7 +33,9 @@
                         {% endfor %}
                     </div>
                 </div>
-                {% include 'partials/_pagination.html.twig' with {posts: itSelf} only %}
+                {% include 'partials/_pagination.html.twig' with {
+                    posts: itSelf
+                } only %}
             </div>
         </div>
     </section>
